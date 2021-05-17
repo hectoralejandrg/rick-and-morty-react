@@ -9,7 +9,7 @@ const Character = ({url }) => {
     const [status, setStatus] = useState('');
     const [species, setSpecies] = useState('');
     const [origin, setOrigin] = useState('');
-    const [episode, setEpisode] = useState('');
+    const [episode, setEpisode] = useState(0);
     /**Peticion para obtener datos del personaje */
     useEffect(() => {
         if(url){
@@ -20,7 +20,7 @@ const Character = ({url }) => {
                     setStatus(data.status);
                     setSpecies(data.species);
                     setOrigin(data.origin.name);
-                    setEpisode(data.episode[0].split('/').pop())
+                    setEpisode(data.episode.length)
                 })
         }
     }, [url])
@@ -34,7 +34,7 @@ const Character = ({url }) => {
                 <p className="card-text"><span className={status==='Alive'?"me-1 text-success":"me-1 text-danger"}><FontAwesomeIcon icon={status==='Alive'?faHeartbeat: faDizzy}/></span>- {status}</p>
                 <p className="card-text"><span className="me-1"><FontAwesomeIcon icon={faBiohazard}/></span>- {species}</p>
                 <p className="card-text"><span className="me-1"><FontAwesomeIcon icon={faGlobeAmericas}/></span>- {origin}</p>
-                <p className="card-text"><span className="me-1"><FontAwesomeIcon icon={faVideo}/></span>- Episode {episode}</p>
+                <p className="card-text"><span className="me-1"><FontAwesomeIcon icon={faVideo}/></span>- Amount of episode {episode}</p>
             </div>
         </div>
     )
