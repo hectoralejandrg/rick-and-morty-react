@@ -25,14 +25,16 @@ const Container = () => {
 
     /**Obtiene un location random */
     useEffect(() => {
-        getLocation(count)
-            .then(data => {
-                setName(data.name);
-                setType(data.type);
-                setDimension(data.dimension);
-                setAmountResidents(data.residents.length)
-                setResidents(data.residents)
-            })
+        if (count) {
+            getLocation(count)
+                .then(data => {
+                    setName(data.name);
+                    setType(data.type);
+                    setDimension(data.dimension);
+                    setAmountResidents(data.residents.length)
+                    setResidents(data.residents)
+                })
+        }
 
     }, [count])
 
@@ -49,7 +51,6 @@ const Container = () => {
     const getSearch = (name) => {
         getSearchLocation(name)
             .then(data => {
-                console.log(data);
                 setName(data.results[0].name);
                 setType(data.results[0].type);
                 setDimension(data.results[0].dimension);
@@ -60,17 +61,17 @@ const Container = () => {
     }
 
     /**Maneja la visibilidad del componente buscar*/
-    const handleVisible=()=>{
+    const handleVisible = () => {
         setVisible(false)
     }
 
     return (
         <div className="container-fluid">
             <div className="d-flex justify-content-center">
-                <img src={titleLogo}  style={{ height:"100px" ,width:"350px"}} alt="Title"/>
+                <img src={titleLogo} style={{ height: "100px", width: "350px" }} alt="Title" />
             </div>
             <div className="d-flex justify-content-between mb-2">
-                {!visible?<Search handleSearch={getSearch}/>:<button className="btn btn-secondary" onClick={handleVisible}><FontAwesomeIcon icon={faSearchPlus}/></button>}
+                {!visible ? <Search handleSearch={getSearch} /> : <button className="btn btn-secondary" onClick={handleVisible}><FontAwesomeIcon icon={faSearchPlus} /></button>}
             </div>
             <div className="mt-1">
                 <Location name={name} type={type} dimension={dimension} amountResidents={amountResidents} />
